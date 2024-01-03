@@ -1,5 +1,6 @@
 import flask
-from flask import Flask, render_template, request, redirect, Markup, url_for, session, flash, Response, send_file
+from flask import Flask, render_template, request, redirect,url_for, session, flash, Response, send_file
+from markupsafe import Markup
 from flask_mysqldb import MySQL
 import pickle
 import numpy as np
@@ -11,6 +12,13 @@ import os
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import Sequential
+from flask_mail import Mail, Message
+import jwt
+import smtplib, ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from itsdangerous import URLSafeTimedSerializer
+from werkzeug.security import check_password_hash
 
 
 
