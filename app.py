@@ -19,6 +19,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from itsdangerous import URLSafeTimedSerializer
 from werkzeug.security import check_password_hash
+from tensorflow.keras.models import load_model
 
 
 
@@ -58,7 +59,12 @@ mysql = MySQL(app)
 #Create an instance of Mail.
 mail = Mail(app)
 
-model = pickle.load(open('model.pkl', 'rb'))
+model = load_model('model.h5')
+
+with open('tokenizer.pkl', 'rb') as handle:
+    tokenizer = pickle.load(handle)
+
+maxlen=1000
 
 @app.route('/', methods=['GET'])
 def home():
@@ -72,6 +78,7 @@ def run_model():
     x=tokenizer.texts_to_sequences(x)
     x=pad_sequences(x,maxlen=maxlen)
     y_pred=(model.predict(x))*100
+   
     return render_template('result.html', prediction=str(y_pred))
   return render_template('project_main.html')
 
@@ -109,4 +116,5 @@ def select_all_records():
 
 
 
-app.run()
+if __name__ == "__main__":
+	app.run(debug=True)
