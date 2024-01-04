@@ -1456,15 +1456,15 @@ input[type="submit"] {
 }
 
 .homepage-bg-1 {
-  background-image: url(../images/hero-bg.jpg);
+  background-image: url(../images/pexels-david-gomes-2495160.jpg);
 }
 
 .homepage-bg-2 {
-  background-image: url(../images/hero-bg-2.jpg);
+  background-image: url(../images/pexels-negative-space-177557.jpg);
 }
 
 .homepage-bg-3 {
-  background-image: url(../images/hero-bg-3.jpg);
+  background-image: url(../images/pexels-markus-spiske-3970328.jpg);
 }
 
 .homepage-slider {
@@ -2732,3 +2732,5 @@ table.order-details tbody td {
   vertical-align: middle;
   width: 100%;
 }
+
+

@@ -30,6 +30,7 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 	<!-- responsive -->
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+	
 
 </head>
 <body>
@@ -50,16 +51,27 @@
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a href="{{ url_for('home') }}">
+							{% if session['username'] %}
+							<a href="{{ url_for('home2') }}">
 								<img style="width: 60px;" src="{{ url_for('static', filename='images/logo-no-background.png') }}" alt="">
 							</a>
+								{% else %}
+								<a href="{{ url_for('home') }}">
+									<img style="width: 60px;" src="{{ url_for('static', filename='images/logo-no-background.png') }}" alt="">
+								</a>
+								{% endif %}
+							
 						</div>
 						<!-- logo -->
 
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="current-list-item"><a href="{{ url_for('home') }}">Home</a>
+								{% if session['username'] %}
+									<li class="current-list-item"><a href="{{ url_for('home2') }}">Home</a></li>
+								{% else %}
+									<li class="current-list-item"><a href="{{ url_for('home') }}">Home</a></li>
+								{% endif %}
 								</li>
 								<li><a href="{{ url_for('about') }}">About</a></li>
 								<li><a href="#">Pages</a>
@@ -80,7 +92,13 @@
 								
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="{{ url_for('login') }}">Login</a>
+										
+										{% if username %}
+    										<a class="shopping-cart text-capitalize" href="{{ url_for('profile') }}"><i class="far fa-user"></i>{{ username }}</a>
+											<a class="shopping-cart" style="color: rgb(156, 82, 82);" href="{{ url_for('logout') }}">Logout</a>
+										{% else %}
+    										<a class="shopping-cart" href="{{ url_for('login') }}">Login</a>
+										{% endif %}
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
@@ -210,6 +228,7 @@
 	<script src="{{ url_for('static', filename='js/sticker.js') }}"></script>
 	<!-- main js -->
 	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+	
 
 </body>
 </html>

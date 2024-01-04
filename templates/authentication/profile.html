@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    <!-- breadcrumb-section -->
+		<div class="breadcrumb-section breadcrumb-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 offset-lg-2 text-center">
+						<div class="breadcrumb-text">
+							<p>On the Go</p>
+							<h1>Profile</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end breadcrumb section -->
+    <div class="container layout_padding" style="padding-bottom: 280px;">
+        <div class="main-body">
+        
+             <br><br>      
+             <legend class="hidden-first" style="color: #ac6718;padding-left: 20px;">Edit Profile</legend>
+                <div class="col-md-8">
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">User Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ account['username'] }}
+                        </div>
+                      </div>
+                      <hr>
+                        <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Password</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            ******
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ account['email'] }}
+                        </div>
+                      </div>
+                      <hr>
+                    
+                      <hr>
+                      
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Status</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary" style="color: green!important;font-weight: bold;">
+                            Verified
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          
+                           <a class="btn  " style="color: white!important;background-color: #ac6718;" href="./edit_profile/edit/{{ account['id'] }}" class="link-button" >Edit</a> 
+                         
+                        </div>
+                      </div>
+    
+                    </div>
+                  </div>
+    
+                   
+    
+    
+    
+                </div>
+              </div>
+    
+            </div>
+       
+{% endblock %}

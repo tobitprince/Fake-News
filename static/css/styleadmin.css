@@ -58,7 +58,7 @@ a, a:hover, a:focus {
 
 #sidebar .sidebar-header {
 	padding: 10px 20px;
-	background: #373a3c
+	background: #051922
 }
 
 #sidebar .sidebar-header strong {
@@ -99,9 +99,7 @@ a, a:hover, a:focus {
 	background: #1a6dca;
 }
 
-.visit {
-	padding: 20px;
-}
+
 
 .visit a {
 	text-align: center;
@@ -109,13 +107,10 @@ a, a:hover, a:focus {
 	display: block;
 	border-radius: 5px;
 	margin-bottom: 5px;
+	padding-top: 20px;
 }
 
-.visit a {
-	background: #fff;
-	color: #7386D5;
-	padding: 10px
-}
+
 
 /* content */
 #content {

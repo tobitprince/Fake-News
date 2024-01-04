@@ -2,14 +2,14 @@
 {% extends "admin/base.html" %}
 
 {% block content %}
-	<h1>Users' Images</h1>
+	<h1>Users' Articles</h1>
 <p>This table includes {{table_count}} predictions</p>
 <table id="sorted" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Id</th>
             <th>Username</th>
-            <th>Image Path</th>
+            <th>Article</th>
             <th>Prediction</th>
         </tr>
     </thead>
@@ -18,7 +18,7 @@
         <tr>
             <td>{{ row_data['id'] }}</td>
             <td class="text-capitalize">{{ row_data['username'] }}</td>
-            <td><img src="{{ url_for('static', filename=row_data['imagepath']) }}" alt="Image" width="100"></td>
+            <td><img src="{{ url_for('static', filename=row_data['article']) }}" alt="Image" width="100"></td>
             <td>{{ row_data['result'] }}</td>
             <td>
                 <a 

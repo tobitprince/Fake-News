@@ -94,36 +94,63 @@ def home2():
 
 @app.route('/project', methods=['GET'])
 def project():
-  return render_template('project_main.html')
+  username = None
+  if 'username' in session:
+    username = session['username']
+  return render_template('project_main.html', username=username)
 
 
 
 @app.route('/error', methods=['GET'])
 def error():
-  return render_template('404.html')
+  username = None
+  if 'username' in session:
+    username = session['username']
+  return render_template('404.html', username=username)
 
 @app.route('/contact', methods=['GET'])
 def contact():
-  return render_template('contact.html')
+  username = None
+  if 'username' in session:
+    username = session['username']
+  return render_template('contact.html', username=username)
 
 @app.route('/about', methods=['GET'])
 def about():
-  return render_template('about.html')
+  username = None
+  if 'username' in session:
+    username = session['username']
+  return render_template('about.html', username=username)
 
 @app.route('/news', methods=['GET'])
 def news():
-  return render_template('news.html')
+  username = None
+  if 'username' in session:
+    username = session['username']
+  return render_template('news.html', username=username)
 
-@app.route('/project', methods=['GET', "POST"])
+@app.route('/run_model', methods=['GET', "POST"])
 def run_model():
   if request.method == "POST":
-    data=request.form['a']
+    data=request.form['message']
     x=[data]
     x=tokenizer.texts_to_sequences(x)
     x=pad_sequences(x,maxlen=maxlen)
     y_pred=(model.predict(x))*100
+    if 'username' in session:
+        username = session['username']
+    # Store the image, user's name, and the result in the database
+    
+    cur = mysql.connection.cursor()
+    # Fetch the user's id
+    prediction=str(y_pred)
+    cur.execute("SELECT id FROM users WHERE username = %s", (session['username'],))
+    farmer_id = cur.fetchone()[0]
+    cur.execute("INSERT INTO userimage(username, article, result, user_id) VALUES (%s, %s, %s, %s)", (session['username'], data, prediction,user_id))
+    mysql.connection.commit()
+    cur.close()
    
-    return render_template('result.html', prediction=str(y_pred))
+    return render_template('result.html', prediction=str(y_pred), username=username)
   return render_template('project_main.html')
 
 @app.route('/feedback')
@@ -314,22 +341,22 @@ def profile():
     if 'loggedin' in session:
         # We need all the account info for the user so we can display it on the profile page
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM farmers WHERE id = %s', (session['id'],))
+        cursor.execute('SELECT * FROM users WHERE id = %s', (session['id'],))
         account = cursor.fetchone()
         # Show the profile page with account info
-        return render_template('login/profile.html', account=account, username=session['username'])
+        return render_template('authentication/profile.html', account=account, username=session['username'])
     # User is not logged in redirect to login page
     return redirect(url_for('login'))
 
 @app.route('/edit_profile/<string:act>/<int:modifier_id>', methods=['GET', 'POST'])
 def edit_profile(modifier_id, act):
 	if act == "add":
-		return render_template('login/edit_profile.html', data="", act="add")
+		return render_template('authentication/edit_profile.html', data="", act="add")
 	else:
-		data = fetch_one(mysql, "farmers", "id", modifier_id)
+		data = fetch_one(mysql, "users", "id", modifier_id)
 	
 		if data:
-			return render_template('login/edit_profile.html', data=data, act=act, username=session['username'])
+			return render_template('authentication/edit_profile.html', data=data, act=act, username=session['username'])
 		else:
 			return 'Error loading #%s' % modifier_id
           

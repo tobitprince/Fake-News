@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+        <!-- breadcrumb-section -->
+		<div class="breadcrumb-section breadcrumb-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 offset-lg-2 text-center">
+						<div class="breadcrumb-text">
+							<p>Quick and Responsive</p>
+							<h1>Edit Profile</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end breadcrumb section -->
+
+            <div class="container layout_padding" style="padding-bottom: 280px;">
+                 <div class="main-body">
+            
+                 <br><br>      
+                 <legend class="hidden-first" style="color: #ac6718;padding-left: 20px;">Edit Profile</legend>
+                    <div class="col-md-8">
+                        <form method="post" action="{{ url_for('saveprofile') }}" enctype='multipart/form-data'>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <input name="cat" type="hidden" value='farmers'>
+                                <input name="modifier" type="hidden" value='id'>
+                                <input name="id" type="hidden" value="{{data['id']}}">
+                                <input name="act" type="hidden" value="{{act}}">
+                
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <h6 class="mb-0">User Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input 
+                                    class="form-control" 
+                                    type="text" 
+                                    name="username"
+                                    value="{{data['username']}}" />
+                                </div>
+                              </div>
+                              <hr>
+                                <div class="row">
+                                <div class="col-sm-3">
+                                  <h6 class="mb-0">Password</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input 
+                                    class="form-control" 
+                                    type="text" 
+                                    name="username"
+                                    value="{{data['password']}}" />
+                                </div>
+                              </div>
+                              <hr>
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input 
+                                    class="form-control" 
+                                    type="text" 
+                                    name="username"
+                                    value="{{data['email']}}" />
+                                </div>
+                              </div>
+                              
+                              
+                              
+                              <hr>
+                              <div class="row">
+                                <div class="col-sm-12">
+                                  
+                                    <input type="submit" value=" Save " style="color: white!important;" class="btn btn-success">
+                                 
+                                </div>
+                              </div>
+            
+                            </div>
+                          </div>
+            
+                      </form>
+                       
+        
+        
+        
+                    </div>
+                  </div>
+        
+            </div>
+
+
+{% endblock %}

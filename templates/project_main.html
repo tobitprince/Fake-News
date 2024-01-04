@@ -1,14 +1,26 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Project Main</title>
-</head>
-<body>
-    <h1>Welcome to the Project Main Page</h1>
-    <form method="POST" action="/project">
-        <label for="article">Enter your article:</label><br>
-        <textarea id="article" name="a" rows="4" cols="50"></textarea><br>
-        <input type="submit" value="Submit">
+{% extends 'layout.html' %}
+
+{% block body %}
+ <!-- breadcrumb-section -->
+ <div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Quick and Responsive</p>
+                    <h1>Submit Article</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb section -->
+    
+<div class="container" style="padding: 30px;">
+    <form action="/run_model" method="post" style="display: flex; flex-direction: column; align-items: start; gap: 10px;">
+        <label for="message" style="font-size: 1.2em; font-weight: bold; color: #ac6718;">Enter your article:</label>
+        <textarea name="message" id="message" cols="50" rows="10" placeholder="Paste your Article here" style="width: 100%; padding: 10px; font-size: 1em;"></textarea>
+        <input type="submit" value="Submit" style="padding: 10px 20px; font-size: 1em; cursor: pointer;  color: white; border: none; border-radius: 5px;">
     </form>
-</body>
-</html>
+</div>
+    {% endblock %}
