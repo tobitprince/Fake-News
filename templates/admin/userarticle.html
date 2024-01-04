@@ -18,11 +18,11 @@
         <tr>
             <td>{{ row_data['id'] }}</td>
             <td class="text-capitalize">{{ row_data['username'] }}</td>
-            <td><img src="{{ url_for('static', filename=row_data['article']) }}" alt="Image" width="100"></td>
+            <td>{{ row_data['article'] }}</td>
             <td>{{ row_data['result'] }}</td>
             <td>
                 <a 
-                    href="./save?cat=userimage&act=delete&modifier=id&id={{ row_data['id'] }}"
+                    href="./save?cat=userarticle&act=delete&modifier=id&id={{ row_data['id'] }}"
                     onclick="return navConfirm(this.href);">
                 <i class="glyphicon glyphicon-trash"></i>
                 </a>

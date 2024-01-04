@@ -1,18 +1,31 @@
 {% extends "admin/base.html" %}
 
 {% block content %}
-	<table class="table table-striped">
-		<tr>
-			<th class="not">Table</th>
-			<th class="not">Entries</th>
-		</tr>
+<canvas id="myChart"></canvas>
 
-		{% for table_name, table_count in tables_and_counts %}
-		<tr>
-			<td><a href="./{{table_name}}">{{table_name|capitalize}}</a></td>
-			<td>{{ table_count }}</td>
-		</tr>
-		{% endfor %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [{% for table_name, table_count in tables_and_counts %}'{{table_name|capitalize}}',{% endfor %}],
+            datasets: [{
+                label: '# of Entries',
+                data: [{% for table_name, table_count in tables_and_counts %}{{table_count}},{% endfor %}],
+                backgroundColor: '#ac6718', // Change this to orange
+            	borderColor: '#ac6718', // Change this to orange
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
 
-</table>
 {% endblock %}

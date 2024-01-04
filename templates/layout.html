@@ -84,8 +84,8 @@
 								</li>
 								<li><a href="{{ url_for('news') }}">News</a>
 									<ul class="sub-menu">
-										<li><a href="news.html">News</a></li>
-										<li><a href="single-news.html">Single News</a></li>
+										<li><a href="{{ url_for('news') }}">News</a></li>
+										<li><a href="{{ url_for('singlenews') }}">Single News</a></li>
 									</ul>
 								</li>
 								<li><a href="{{ url_for('contact') }}">Contact</a></li>
@@ -162,10 +162,16 @@
 					<div class="footer-box pages">
 						<h2 class="widget-title">Pages</h2>
 						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="about.html">About</a></li>
-							<li><a href="news.html">News</a></li>
-							<li><a href="contact.html">Contact</a></li>
+							<li>
+								{% if session['username'] %}
+							<a href="{{ url_for('home2') }}">Home</a>
+								{% else %}
+								<a href="{{ url_for('home') }}">Home</a>
+								{% endif %}
+							</li>
+							<li><a href="{{ url_for('about') }}">About</a></li>
+							<li><a href="{{ url_for('news') }}">News</a></li>
+							<li><a href="{{ url_for('contact') }}">Contact</a></li>
 						</ul>
 					</div>
 				</div>

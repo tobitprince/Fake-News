@@ -129,6 +129,13 @@ def news():
     username = session['username']
   return render_template('news.html', username=username)
 
+@app.route('/single-news', methods=['GET'])
+def singlenews():
+  username = None
+  if 'username' in session:
+    username = session['username']
+  return render_template('single-news.html', username=username)
+
 @app.route('/run_model', methods=['GET', "POST"])
 def run_model():
   if request.method == "POST":
@@ -145,8 +152,8 @@ def run_model():
     # Fetch the user's id
     prediction=str(y_pred)
     cur.execute("SELECT id FROM users WHERE username = %s", (session['username'],))
-    farmer_id = cur.fetchone()[0]
-    cur.execute("INSERT INTO userimage(username, article, result, user_id) VALUES (%s, %s, %s, %s)", (session['username'], data, prediction,user_id))
+    user_id = cur.fetchone()[0]
+    cur.execute("INSERT INTO userarticle(username, article, result, user_id) VALUES (%s, %s, %s, %s)", (session['username'], data, prediction,user_id))
     mysql.connection.commit()
     cur.close()
    
@@ -667,11 +674,11 @@ def edit_admintable(modifier_id, act):
 		else:
 			return 'Error loading #%s' % modifier_id
 
-@app.route("/userimage")
+@app.route("/userarticle")
 @login_required
-def userimage():
-	data = fetch_all(mysql, "userimage")
-	return render_template('admin/userimage.html', data=data, table_count=len(data))
+def userarticle():
+	data = fetch_all(mysql, "userarticle")
+	return render_template('admin/userarticle.html', data=data, table_count=len(data))
 
 
 @app.route('/save', methods=['GET', 'POST'])
@@ -838,8 +845,8 @@ def report():
     # Connect to the database
     cur = mysql.connection.cursor()
 
-    # Execute a SELECT query to get the data from userimage table
-    cur.execute("SELECT * FROM userimage")
+    # Execute a SELECT query to get the data from userarticle table
+    cur.execute("SELECT * FROM userarticle")
     images_data = cur.fetchall()
 
     # Get the column names from the cursor description
@@ -857,11 +864,11 @@ def report():
     # Add the heading and logo to the PDF
     styles = getSampleStyleSheet()
     title = Paragraph("PandAid", styles['Title'])
-    logo_path = os.path.join('static', 'images', 'logo3.png')
+    logo_path = os.path.join('static', 'images', 'logo-no-background.png')
     logo = ReportLabImage(logo_path, width=100, height=50)  # Adjust the path and dimensions as needed
 
     # Add a new paragraph
-    paragraph_text = "Avocados are not just a trendy addition to our diets but also a vital component of agricultural economies"
+    paragraph_text = "The importance of accurate news should never be underestimated. It is the foundation of a healthy democracy, and it is the responsibility of each and every one of us to seek out the truth."
     paragraph = Paragraph(paragraph_text, styles['BodyText'])
 
     # Create the tables
