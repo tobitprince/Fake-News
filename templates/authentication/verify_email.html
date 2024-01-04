@@ -1,48 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- Created by CodingLab |www.youtube.com/c/CodingLabYT-->
+<html lang="en" dir="ltr">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
-    <title>Verify | Avodoc</title>
-    <!-- Social media CDN -->
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    <link rel="stylesheet" href="static/css/style-verification.css">
-    <link rel="icon" href="static/images/logo-small.png" type="image/gif" />
-  </head>
-  <style>
-  </style>
-
+    <meta charset="UTF-8">
+    <!--<title> Login and Registration Form in HTML & CSS | CodingLab </title>-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleauth.css') }}">
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
 <body>
-    {% include "includes/alert.html" %}
-    <!-- Recover password -->
-    <div class="container">
-      <div class="forms-container">
-        <div class="reset-password">
-          <form action="/verify-email" class="sign-in-form" method="POST">
-            <h2 class="title">Verify Account</h2>
-           	<div class="input-field">
-              <i class="fas fa-key"></i>
-              <input type="text" placeholder="OTP code" name="token" id="code">
-            </div>   
-            <input type="submit" value="Verify" class="btn solid" name="verify">
-          </form>
-        </div>
-        </div>
-            
-      <!-- left panel -->
-      <div class="panels-container">
-        <div class="panel left-panel">
-          <div class="content">
-            <h3>Verify Your Account?</h3>
-            <p>
-                Dear User, Kindly fill up your OTP code that you received by email<br>
-                We will help you to verify your account ASAP.
-            </p>
-          </div>
-          <img src="static/images/logo-small" class="image" alt="" />
+  {% include "includes/alert.html" %}
+  <!--PreLoader-->
+  <div class="loader">
+    <div class="loader-inner">
+        <div class="circle"></div>
+    </div>
+</div>
+<!--PreLoader Ends-->
+  <div class="container">
+    <a href="{{ url_for('home') }}">
+      <img style="width: 60px;" src="{{ url_for('static', filename='images/logo-small.png') }}" alt="">
+    </a>
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src="{{ url_for('static', filename='images/frontImg.jpg') }}" alt="">
+        
+        <div class="text">
+          
+          <span class="text-1">Verify Your Account</span>
+          <span class="text-2"> Fill up your OTP code that you received by email</span>
         </div>
       </div>
+      
+    </div>
+    <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">Verify Account </div>
+          <form action="/verify-email" method="post"  name="login">
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-key"></i>
+                <input type="text" placeholder="OTP code" name="token" required>
+              </div>
+              
+              <div class="button input-box">
+                <input type="submit" value="Verify" name="verify">
+              </div>
+             
+            </div>
+        </form>
+      </div>
+        
+    </div>
+    </div>
   </div>
+<!-- jquery -->
+<script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script>
+<!-- bootstrap -->
+<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- count down -->
+<script src="{{ url_for('static', filename='js/jquery.countdown.js') }}"></script>
+<!-- isotope -->
+<script src="{{ url_for('static', filename='js/jquery.isotope-3.0.6.min.js') }}"></script>
+<!-- waypoints -->
+<script src="{{ url_for('static', filename='js/waypoints.js') }}"></script>
+<!-- owl carousel -->
+<script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
+<!-- magnific popup -->
+<script src="{{ url_for('static', filename='js/jquery.magnific-popup.min.js') }}"></script>
+<!-- mean menu -->
+<script src="{{ url_for('static', filename='js/jquery.meanmenu.min.js') }}"></script>
+<!-- sticker js -->
+<script src="{{ url_for('static', filename='js/sticker.js') }}"></script>
+<!-- main js -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
 </body>
 </html>

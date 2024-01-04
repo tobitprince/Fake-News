@@ -1,13 +1,13 @@
 
 <!-- Sidebar Holder -->
-<nav id="sidebar" class="bg-primary" style="background-color: #000000!important;">
+<nav id="sidebar" class="bg-primary" style="background-color: #ac6718!important;">
 	<div class="sidebar-header">
 		<h3>
-			Avodoc Admin<br>
+			PandAid Admin<br>
 			<i id="sidebarCollapse" class="glyphicon glyphicon-circle-arrow-left"></i>
 		</h3>
 		<strong>
-			Avodoc<br>
+			PandAid<br>
 			<i id="sidebarExtend" class="glyphicon glyphicon-circle-arrow-right"></i>
 		</strong>
 		
@@ -22,9 +22,9 @@
 		</li>
 
 <li>
-	<a href="/farmers">
+	<a href="/users">
 		<i class="glyphicon glyphicon-user"></i>
-		Farmers
+		Users
 		<span class="pull-right">{{tables_and_counts.2.1}}</span>
 	</a>
 </li>
@@ -38,9 +38,9 @@
 </li>
 
 <li>
-	<a href="/farmerimage">
+	<a href="/userimage">
 		<i class="glyphicon glyphicon-user"></i>
-		Farmer Images
+		User Images
 		<span class="pull-right">{{tables_and_counts.1.1}}</span>
 	</a>
 </li>
@@ -49,6 +49,6 @@
 		<li style="color: red;"><a href="/adminlogout"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
 	</ul>
 	<div class ="visit">
-	<a href="./"><img src="{{ url_for('static', filename='images/palta.svg') }}" class="image" alt="" /></a>
+	<a href="./"><img src="{{ url_for('static', filename='images/logo-no-background.png') }}" class="image" alt="" style="height: 50px;" /></a>
 	</div>
 </nav><!-- / end sidebar -->
