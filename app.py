@@ -83,13 +83,20 @@ maxlen=1000
 def home():
   return render_template('index.html')
 
+@ app.route('/home2')
+def home2():
+    # Check if user is loggedin
+    if 'loggedin' in session:
+        # User is loggedin show them the home page
+        return render_template('index_2.html', username=session['username'],title="Home")
+    # User is not loggedin redirect to login page
+    return redirect(url_for('login')) 
+
 @app.route('/project', methods=['GET'])
 def project():
   return render_template('project_main.html')
 
-@app.route('/home1', methods=['GET'])
-def home1():
-  return render_template('index_2.html')
+
 
 @app.route('/error', methods=['GET'])
 def error():
@@ -189,7 +196,7 @@ def logini():
             msg = 'Incorrect username/password!'
             flash("Incorrect username/password!", "danger")
 
-    return render_template('login/signup-login.html', msg=msg)
+    return render_template('authentication/index.html', msg=msg)
 # http://localhost:5000/pythonlogin/register 
 # This will be the registration page, we need to use both GET and POST requests
 @app.route('/register', methods=['GET', 'POST'])
@@ -298,6 +305,52 @@ def register():
     # Show registration form with message (if any)
     msg = 'error'
     return render_template('authentication/index.html', msg = msg)
+
+
+# http://localhost:5000/pythinlogin/profile - this will be the profile page, only accessible for logged in users
+@app.route('/profile')
+def profile():
+    # Check if the user is logged in
+    if 'loggedin' in session:
+        # We need all the account info for the user so we can display it on the profile page
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM farmers WHERE id = %s', (session['id'],))
+        account = cursor.fetchone()
+        # Show the profile page with account info
+        return render_template('login/profile.html', account=account, username=session['username'])
+    # User is not logged in redirect to login page
+    return redirect(url_for('login'))
+
+@app.route('/edit_profile/<string:act>/<int:modifier_id>', methods=['GET', 'POST'])
+def edit_profile(modifier_id, act):
+	if act == "add":
+		return render_template('login/edit_profile.html', data="", act="add")
+	else:
+		data = fetch_one(mysql, "farmers", "id", modifier_id)
+	
+		if data:
+			return render_template('login/edit_profile.html', data=data, act=act, username=session['username'])
+		else:
+			return 'Error loading #%s' % modifier_id
+          
+@app.route('/saveprofile', methods=['GET', 'POST'])
+def saveprofile():
+	cat = ''
+	if request.method == 'POST':
+		post_data = request.form.to_dict()
+		if 'password' in post_data:
+			post_data['password'] = generate_password_hash(post_data['password']) 
+		if post_data['act'] == 'add':
+			cat = post_data['cat']
+			insert_one(mysql, cat, post_data)
+		elif post_data['act'] == 'edit':
+			cat = post_data['cat']
+			update_one(mysql, cat, post_data, post_data['modifier'], post_data['id'])
+	else:
+		if request.args['act'] == 'delete':
+			cat = request.args['cat']
+			delete_one(mysql, cat, request.args['modifier'], request.args['id'])
+	return redirect("/home2")
 
 
 # http://localhost:5000/python/logout - this will be the logout page
@@ -453,6 +506,73 @@ def rst():
         return redirect(url_for('login'))
 
     return render_template('authentication/reset_with_token.html')
+
+
+###################
+####CONTACT MODULE########
+###################
+@app.route('/questions', methods=['GET', 'POST'])
+def questions():
+     if request.method == 'POST' and 'name' in request.form and 'email' in request.form and 'subject' in request.form and 'message' in request.form and 'phone' in request.form:
+            name = request.form['name']
+            email_address = request.form['email']
+            phone = request.form['phone']
+            subject = request.form['subject']
+            message = request.form['message']
+
+            port = os.getenv('port')  # For starttls
+            smtp_server = os.getenv('smtp_server')
+            sender_email = os.getenv('sender_email')
+            receiver_email = email_address
+            password = os.getenv('password')
+            try:
+                message = MIMEMultipart("alternative")
+                message["Subject"] = subject
+                message["From"] = sender_email
+                message["To"] = receiver_email
+
+                # Create the plain-text and HTML version of your message
+                text = """\
+                Hi {name},
+                Thank you for contacting us and we will attend to you right away
+                With regards,
+                PandAid""".format(name = name)
+                html = """\
+                <html>
+                <body>
+                    <p>Hi {name},<br>
+                    Thank you for contacting us and we will attend to you right away
+                    <br><br>
+                    </p>
+                    <br><br>
+                    <p>With regards,</p>
+                    <b>PandAid</b>
+                </body>
+                </html>
+                """.format(name = name)
+
+                # Turn these into plain/html MIMEText objects
+                part1 = MIMEText(text, "plain")
+                part2 = MIMEText(html, "html")
+
+                # Add HTML/plain-text parts to MIMEMultipart message
+                # The email client will try to render the last part first
+                message.attach(part1)
+                message.attach(part2)
+
+                context = ssl.create_default_context()
+                with smtplib.SMTP(smtp_server, port) as server:
+                    server.ehlo()  # Can be omitted
+                    server.starttls(context=context)
+                    server.ehlo()  # Can be omitted
+                    server.login(sender_email, password)
+                    server.sendmail(sender_email, receiver_email, message.as_string())
+                flash('Your message has been sent', 'success')
+            except Exception as e:
+                print(f"Error sending email: {e}")
+                flash('Error sending email', 'danger')
+            return redirect(url_for('contact'))
+     return render_template('contact.html')
 
 
 ##ADMIN 
