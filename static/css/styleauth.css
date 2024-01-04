@@ -11,7 +11,10 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #7d2ae8;
+  background-image: url(../images/pexels-brotin-biswas-518543.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   padding: 30px;
 }
 .container{
@@ -55,7 +58,7 @@ body{
   position: absolute;
   height: 100%;
   width: 100%;
-  background: #7d2ae8;
+  background: #ac6718;
   opacity: 0.5;
   z-index: 12;
 }
@@ -119,7 +122,7 @@ body{
   bottom: 0;
   height: 3px;
   width: 25px;
-  background: #7d2ae8;
+  background: #e8bc2a;
 }
 .forms .signup-form  .title:before{
   width: 20px;
@@ -148,11 +151,11 @@ body{
 }
 .form-content .input-box input:focus,
 .form-content .input-box input:valid{
-  border-color: #7d2ae8;
+  border-color: #ac6718;
 }
 .form-content .input-box i{
   position: absolute;
-  color: #7d2ae8;
+  color: #ac6718;
   font-size: 17px;
 }
 .forms .form-content .text{
@@ -172,17 +175,17 @@ body{
 }
 .forms .form-content .button input{
   color: #fff;
-  background: #7d2ae8;
+  background: #ac6718;
   border-radius: 6px;
   padding: 0;
   cursor: pointer;
   transition: all 0.4s ease;
 }
 .forms .form-content .button input:hover{
-  background: #5b13b9;
+  background: #ac6718;
 }
 .forms .form-content label{
-  color: #5b13b9;
+  color: #ac6718;
   cursor: pointer;
 }
 .forms .form-content label:hover{
@@ -213,4 +216,124 @@ body{
   .container #flip:checked ~ .forms .login-form{
     display: none;
   }
+}
+
+
+----------------------------------------------------------------------------- */
+.loader {
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1111;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+.loader-inner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  height: 50px;
+  width: 50px;
+}
+
+.circle {
+  width: 8vmax;
+  height: 8vmax;
+  border-right: 4px solid #000;
+  border-radius: 50%;
+  -webkit-animation: spinRight 800ms linear infinite;
+  animation: spinRight 800ms linear infinite;
+}
+
+.circle:before {
+  content: '';
+  width: 6vmax;
+  height: 6vmax;
+  display: block;
+  position: absolute;
+  top: calc(50% - 3vmax);
+  left: calc(50% - 3vmax);
+  border-left: 3px solid #F28123;
+  border-radius: 100%;
+  -webkit-animation: spinLeft 800ms linear infinite;
+  animation: spinLeft 800ms linear infinite;
+}
+
+.circle:after {
+  content: '';
+  width: 6vmax;
+  height: 6vmax;
+  display: block;
+  position: absolute;
+  top: calc(50% - 3vmax);
+  left: calc(50% - 3vmax);
+  border-left: 3px solid #F28123;
+  border-radius: 100%;
+  -webkit-animation: spinLeft 800ms linear infinite;
+  animation: spinLeft 800ms linear infinite;
+  width: 4vmax;
+  height: 4vmax;
+  top: calc(50% - 2vmax);
+  left: calc(50% - 2vmax);
+  border: 0;
+  border-right: 2px solid #000;
+  -webkit-animation: none;
+  animation: none;
+}
+
+@-webkit-keyframes spinLeft {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(720deg);
+    transform: rotate(720deg);
+  }
+}
+
+@keyframes spinLeft {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(720deg);
+    transform: rotate(720deg);
+  }
+}
+
+@-webkit-keyframes spinRight {
+  from {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+  to {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes spinRight {
+  from {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+  to {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+.mt-80 {
+  margin-top: 80px;
 }
